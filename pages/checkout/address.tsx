@@ -1,7 +1,7 @@
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { ShopLayout } from '../../components/layouts/ShopLayout';
 // import { GetServerSideProps } from 'next'
@@ -36,9 +36,13 @@ const getAddressFromCookies = (): FormData => {
 const AddressPage = () => {
     const router = useRouter();
     const { updateAddress } = useContext(CartContext)
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
         defaultValues: getAddressFromCookies()
     });
+    
+    useEffect(() => {
+      reset(getAddressFromCookies())
+    }, [reset])
     
     const onSubmitForm = async (data: FormData) => {
         updateAddress(data);
@@ -124,7 +128,7 @@ const AddressPage = () => {
                         select
                         variant='filled'
                         label="Pais"
-                        defaultValue={ Cookies.get('country') || countries[0].code }
+                        // defaultValue={ Cookies.get('country') || countries[0].code }
                         { ...register('country')}
                         error={ !!errors.country }
                         helperText={ errors.country?.message}

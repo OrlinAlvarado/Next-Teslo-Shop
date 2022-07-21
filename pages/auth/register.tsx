@@ -1,11 +1,12 @@
 import { useContext, useState } from 'react';
 import NextLink from 'next/link';
+import { signIn, getSession } from 'next-auth/react';
+import { GetServerSideProps } from 'next';
 
 import { Box, Button, Chip, Grid, Link, TextField, Typography } from "@mui/material"
 import { AuthLayout } from "../../components/layouts"
 import { useForm } from 'react-hook-form';
 import { validations } from '../../utils';
-import { tesloApi } from '../../api';
 import { ErrorOutline } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import { AuthContext } from '../../context/auth/AuthContext';
@@ -35,7 +36,9 @@ const LoginPage = () => {
         }
         
         //TODO: Navegar a la pantalla que el usuario estaba 
-        router.replace(destination);
+        // router.replace(destination);
+        
+        await signIn( 'credentials', { email, password })
         
     }
   return (
@@ -117,6 +120,22 @@ const LoginPage = () => {
         </form>
     </AuthLayout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+    const session = await getSession({ req });
+    const { p = '/' } = query
+    if( session ) {
+        return {
+            redirect: {
+                destination: p.toString(),
+                permanent: false
+            }
+        }
+    }
+    return {
+        props: {}
+    }
 }
 
 export default LoginPage
