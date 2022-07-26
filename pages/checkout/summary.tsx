@@ -53,7 +53,7 @@ const SummaryPage = () => {
                             <Typography>{ firstName } { lastName}</Typography>
                             <Typography>{ address }{ address2 ? `, ${address2}` : '' }</Typography>
                             <Typography>{ city }, { zip }</Typography>
-                            <Typography>{ getCountry(country) }</Typography>
+                            <Typography>{ country }</Typography>
                             <Typography>{ phone }</Typography>
                         </>
                         )}

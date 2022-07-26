@@ -123,26 +123,29 @@ const AddressPage = () => {
                     />
             </Grid>
             <Grid item xs={ 12 } sm={ 6 }>
-                <FormControl fullWidth>
+                {/* <FormControl fullWidth> */}
                     <TextField 
-                        select
+                        // select
+                        fullWidth
                         variant='filled'
                         label="Pais"
                         // defaultValue={ Cookies.get('country') || countries[0].code }
-                        { ...register('country')}
+                        { ...register('country', {
+                            required: 'Este campo es requerido',
+                        })}
                         error={ !!errors.country }
                         helperText={ errors.country?.message}
                     >
-                        {
+                        {/* {
                             countries.map( country => (
                                 <MenuItem 
                                     key={ country.code } 
                                     value={ country.code }
                                 >{ country.name }</MenuItem>
                             ))
-                        }
+                        } */}
                     </TextField>
-                </FormControl>
+                {/* </FormControl> */}
             </Grid>
             <Grid item xs={ 12 } sm={ 6 }>
                 <TextField
