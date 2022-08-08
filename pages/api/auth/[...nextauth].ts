@@ -15,7 +15,6 @@ export default NextAuth({
         password: { label: 'Contraseña', type: 'password', placeholder: 'Contraseña' },
       },
       async authorize(credentials) {
-        console.log(credentials);
         
         // return { name: 'Juan', correo: 'juan@google.com', role: 'admin'}
         return await dbUsers.checkUserEmailPassword(credentials!.email, credentials!.password);
@@ -44,7 +43,6 @@ export default NextAuth({
   // Callbacks
   callbacks: {
     async jwt({ token, account, user }) {
-      console.log({ token, account, user});
       if( account ) {
         token.accessToken = account.access_token;
         switch (account.type) {
@@ -65,7 +63,6 @@ export default NextAuth({
       return token;
     },
     async session({ session, token, user}) {
-      console.log({ session, token, user });
       session.accessToken = token.accessToken;
       session.user = token.user as any;
       
