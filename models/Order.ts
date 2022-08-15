@@ -23,11 +23,12 @@ const orderShema: Schema = new Schema({
         phone    : { type: String, required: true },
     },
     numberOfItems: { type: Number, required: true },
-    subTotal: { type: String, required: true },
-    tax:      { type: String, required: true },
-    total:    { type: String, required: true },
+    subTotal: { type: Number, required: true },
+    tax:      { type: Number, required: true },
+    total:    { type: Number, required: true },
     isPaid:   { type: Boolean, required: true, default: false},
     paidAt:   { type: String },
+    transactionId: { type: String },
 }, 
 {
     timestamps: true
