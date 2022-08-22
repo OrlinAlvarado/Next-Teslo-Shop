@@ -7,7 +7,7 @@ import { ICartProduct, IOrderItem } from '../../interfaces';
 
 interface Props {
     editable?: boolean;
-    products: IOrderItem[];
+    products?: IOrderItem[];
 }
 
 export const CartList: FC<Props> = ({ editable = false, products }) => {
